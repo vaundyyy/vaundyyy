@@ -4,8 +4,8 @@
 - 👯 I’m looking to collaborate on Java Applications
 - 🤔 I’m looking for help with Spring Boot
 
-![João Victor Maia GitHub stats](https://github-readme-stats.vercel.app/api?username=vaundyyy&show_icons=true&theme=dracula)
-![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=vaundyyy&layout=compact&theme=dracula)
+![João Victor Maia GitHub stats](https://github-readme-stats.vercel.app/api?username=vaundyyy&show_icons=true&theme=omni)
+![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=vaundyyy&layout=compact&theme=omni)
 
 <div style="display: inline_block"><br>
   <img align="center" alt="-Java" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-plain.svg" />
