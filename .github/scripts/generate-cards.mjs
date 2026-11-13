@@ -1,15 +1,56 @@
 import { pathToFileURL } from "node:url";
-import { mkdirSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 const dir = path.resolve(process.env.GRS_DIR);
 const username = process.env.GH_USERNAME;
-const load = (p) => import(pathToFileURL(path.join(dir, p)).href);
 
-const { fetchStats } = await load("src/fetchers/stats-fetcher.js");
-const { renderStatsCard } = await load("src/cards/stats-card.js");
-const { fetchTopLanguages } = await load("src/fetchers/top-languages-fetcher.js");
-const { renderTopLanguages } = await load("src/cards/top-languages-card.js");
+async function loadFirst(label, candidates) {
+  for (const p of candidates) {
+    const full = path.join(dir, p);
+    if (existsSync(full)) {
+      console.log(`[${label}] usando ${p}`);
+      return import(pathToFileURL(full).href);
+    }
+  }
+  console.error(`[${label}] nenhum arquivo encontrado entre:`, candidates);
+  console.error("Conteúdo de src/:");
+  console.error(readdirSync(path.join(dir, "src"), { recursive: true }).join("\n"));
+  process.exit(1);
+}
+
+function pick(mod, name, label) {
+  const fn = mod[name];
+  if (typeof fn !== "function") {
+    console.error(`[${label}] export "${name}" não encontrado. Exports disponíveis:`, Object.keys(mod));
+    process.exit(1);
+  }
+  return fn;
+}
+
+const statsFetcher = await loadFirst("stats-fetcher", [
+  "src/fetchers/stats-fetcher.js",
+  "src/fetchers/stats.js",
+]);
+const statsCard = await loadFirst("stats-card", [
+  "src/cards/stats-card.js",
+  "src/cards/stats.js",
+]);
+const langsFetcher = await loadFirst("langs-fetcher", [
+  "src/fetchers/top-languages-fetcher.js",
+  "src/fetchers/top-languages.js",
+  "src/fetchers/top-langs.js",
+]);
+const langsCard = await loadFirst("langs-card", [
+  "src/cards/top-languages-card.js",
+  "src/cards/top-languages.js",
+  "src/cards/top-langs.js",
+]);
+
+const fetchStats = pick(statsFetcher, "fetchStats", "stats-fetcher");
+const renderStatsCard = pick(statsCard, "renderStatsCard", "stats-card");
+const fetchTopLanguages = pick(langsFetcher, "fetchTopLanguages", "langs-fetcher");
+const renderTopLanguages = pick(langsCard, "renderTopLanguages", "langs-card");
 
 const theme = {
   hide_border: true,
