@@ -8,12 +8,8 @@
 </p>
 
 <div align="center">
-  <img width="49%" src="./profile-summary-card-output/github_dark/3-stats.svg" alt="GitHub Stats" />
-  <img width="49%" src="./profile-summary-card-output/github_dark/2-most-commit-language.svg" alt="Linguagens mais usadas" />
-</div>
-<div align="center">
-  <img width="49%" src="./profile-summary-card-output/github_dark/1-repos-per-language.svg" alt="Repositórios por linguagem" />
-  <img width="49%" src="./profile-summary-card-output/github_dark/4-productive-time.svg" alt="Horário mais produtivo" />
+  <img height="150" src="./stats/stats.svg" alt="GitHub Stats" />
+  <img height="150" src="./stats/top-langs.svg" alt="Most Used Languages" />
 </div>
 
 <p align="center">
