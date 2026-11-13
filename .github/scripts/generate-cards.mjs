@@ -5,16 +5,19 @@ import path from "node:path";
 const dir = path.resolve(process.env.GRS_DIR);
 const username = process.env.GH_USERNAME;
 
+if (!process.env.PAT_1) {
+  console.error("Token ausente. Crie o secret GH_STATS_TOKEN no repositório.");
+  process.exit(1);
+}
+
 async function loadFirst(label, candidates) {
   for (const p of candidates) {
     const full = path.join(dir, p);
     if (existsSync(full)) {
-      console.log(`[${label}] usando ${p}`);
       return import(pathToFileURL(full).href);
     }
   }
   console.error(`[${label}] nenhum arquivo encontrado entre:`, candidates);
-  console.error("Conteúdo de src/:");
   console.error(readdirSync(path.join(dir, "src"), { recursive: true }).join("\n"));
   process.exit(1);
 }
@@ -22,7 +25,7 @@ async function loadFirst(label, candidates) {
 function pick(mod, name, label) {
   const fn = mod[name];
   if (typeof fn !== "function") {
-    console.error(`[${label}] export "${name}" não encontrado. Exports disponíveis:`, Object.keys(mod));
+    console.error(`[${label}] export "${name}" não encontrado. Disponíveis:`, Object.keys(mod));
     process.exit(1);
   }
   return fn;
@@ -39,38 +42,11 @@ const statsCard = await loadFirst("stats-card", [
 const langsFetcher = await loadFirst("langs-fetcher", [
   "src/fetchers/top-languages-fetcher.js",
   "src/fetchers/top-languages.js",
-  "src/fetchers/top-langs.js",
 ]);
 const langsCard = await loadFirst("langs-card", [
   "src/cards/top-languages-card.js",
   "src/cards/top-languages.js",
-  "src/cards/top-langs.js",
 ]);
 
 const fetchStats = pick(statsFetcher, "fetchStats", "stats-fetcher");
-const renderStatsCard = pick(statsCard, "renderStatsCard", "stats-card");
-const fetchTopLanguages = pick(langsFetcher, "fetchTopLanguages", "langs-fetcher");
-const renderTopLanguages = pick(langsCard, "renderTopLanguages", "langs-card");
-
-const theme = {
-  hide_border: true,
-  title_color: "FFFFFF",
-  icon_color: "FFFFFF",
-  text_color: "76A6DD",
-  bg_color: "0d1117",
-};
-
-mkdirSync("stats", { recursive: true });
-
-console.log("fetchStats:", fetchStats.toString().split("{")[0]);
-console.log("fetchTopLanguages:", fetchTopLanguages.toString().split("{")[0]);
-
-const stats = await fetchStats(username, false, [], false, false, false);
-
-const langs = await fetchTopLanguages(username, []);
-writeFileSync(
-  "stats/top-langs.svg",
-  renderTopLanguages(langs, { ...theme, layout: "compact" }),
-);
-
-console.log("Cards gerados em ./stats");
+const renderStatsCard = pick(statsCard,
