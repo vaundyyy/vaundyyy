@@ -16,13 +16,13 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Clone github-readme-stats
         run: |
           git clone --depth 1 https://github.com/anuraghazra/github-readme-stats.git "$RUNNER_TEMP/grs"
           cd "$RUNNER_TEMP/grs"
-          npm install --omit=dev
+          npm install --omit=dev --ignore-scripts
 
       - name: Generate cards
         env:
