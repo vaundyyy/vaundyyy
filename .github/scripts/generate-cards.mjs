@@ -62,11 +62,10 @@ const theme = {
 
 mkdirSync("stats", { recursive: true });
 
-const stats = await fetchStats(username, true, false, []);
-writeFileSync(
-  "stats/stats.svg",
-  renderStatsCard(stats, { ...theme, show_icons: true }),
-);
+console.log("fetchStats:", fetchStats.toString().split("{")[0]);
+console.log("fetchTopLanguages:", fetchTopLanguages.toString().split("{")[0]);
+
+const stats = await fetchStats(username, false, [], false, false, false);
 
 const langs = await fetchTopLanguages(username, []);
 writeFileSync(
