@@ -49,4 +49,33 @@ const langsCard = await loadFirst("langs-card", [
 ]);
 
 const fetchStats = pick(statsFetcher, "fetchStats", "stats-fetcher");
-const renderStatsCard = pick(statsCard,
+const renderStatsCard = pick(statsCard, "renderStatsCard", "stats-card");
+const fetchTopLanguages = pick(langsFetcher, "fetchTopLanguages", "langs-fetcher");
+const renderTopLanguages = pick(langsCard, "renderTopLanguages", "langs-card");
+
+const theme = {
+  hide_border: true,
+  title_color: "FFFFFF",
+  icon_color: "FFFFFF",
+  text_color: "76A6DD",
+  bg_color: "0d1117",
+};
+
+mkdirSync("stats", { recursive: true });
+
+// fetchStats(username, include_all_commits, exclude_repo, include_merged_pull_requests,
+//            include_discussions, include_discussions_answers, commits_year)
+const stats = await fetchStats(username, false, [], false, false, false);
+writeFileSync(
+  "stats/stats.svg",
+  renderStatsCard(stats, { ...theme, show_icons: true }),
+);
+
+// fetchTopLanguages(username, exclude_repo, size_weight, count_weight)
+const langs = await fetchTopLanguages(username, []);
+writeFileSync(
+  "stats/top-langs.svg",
+  renderTopLanguages(langs, { ...theme, layout: "compact" }),
+);
+
+console.log("Cards gerados em ./stats");
