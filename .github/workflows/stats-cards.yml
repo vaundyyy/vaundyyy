@@ -28,7 +28,7 @@ jobs:
         env:
           GRS_DIR: ${{ runner.temp }}/grs
           GH_USERNAME: ${{ github.repository_owner }}
-          PAT_1: ${{ secrets.GH_STATS_TOKEN || secrets.GITHUB_TOKEN }}
+          PAT_1: ${{ secrets.GH_STATS_TOKEN }}
         run: node .github/scripts/generate-cards.mjs
 
       - name: Commit cards
