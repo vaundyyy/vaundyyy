@@ -18,6 +18,16 @@ jobs:
         with:
           node-version: 22
 
+      - name: Check token
+        env:
+          T: ${{ secrets.GH_STATS_TOKEN }}
+        run: |
+          if [ -z "$T" ]; then
+            echo "SECRET VAZIO OU INEXISTENTE"
+          else
+            echo "Secret recebido (${#T} caracteres)"
+          fi
+
       - name: Clone github-readme-stats
         run: |
           git clone --depth 1 https://github.com/anuraghazra/github-readme-stats.git "$RUNNER_TEMP/grs"
