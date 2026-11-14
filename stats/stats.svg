@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="330" height="170" viewBox="0 0 330 170" role="img" aria-label="GitHub Stats">
+  <style>
+    .title { font: 600 16px 'Segoe UI', Ubuntu, Arial, sans-serif; fill: #ffffff; }
+    .label { font: 400 13px 'Segoe UI', Ubuntu, Arial, sans-serif; fill: #76a6dd; }
+    .value { font: 600 13px 'Segoe UI', Ubuntu, Arial, sans-serif; fill: #ffffff; }
+  </style>
+  <rect width="330" height="170" rx="6" fill="#0d1117"/>
+  <text x="25" y="32" class="title">João Victor Maia's GitHub Stats</text>
+  <text x="25" y="62" class="label">Total Stars:</text>
+  <text x="200" y="62" class="value">0</text>
+  <text x="25" y="83" class="label">Total Commits:</text>
+  <text x="200" y="83" class="value">94</text>
+  <text x="25" y="104" class="label">Total PRs:</text>
+  <text x="200" y="104" class="value">10</text>
+  <text x="25" y="125" class="label">Total Issues:</text>
+  <text x="200" y="125" class="value">0</text>
+  <text x="25" y="146" class="label">Public Repos:</text>
+  <text x="200" y="146" class="value">21</text>
+</svg>
