@@ -19,7 +19,4 @@
   <a href="mailto:joaovictorhmm.contato@gmail.com">
     <img src="https://img.shields.io/badge/Email-21262d?style=flat-square&logo=gmail&logoColor=8b949e" alt="Email" />
   </a>
-  <a href="https://github.com/vaundyyy" target="_blank">
-    <img src="https://img.shields.io/badge/GitHub-21262d?style=flat-square&logo=github&logoColor=8b949e" alt="GitHub" />
-  </a>
 </p>
